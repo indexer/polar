@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="indexer.com.polar.activity.DetailActivity"
+    >
+  <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:windowActionBarOverlay="true"
+        android:title="@string/app_name"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:elevation="4dp"
+        android:background="@color/primary"
+        android:id="@+id/toolbar"
+        >
+    </android.support.v7.widget.Toolbar>
+
+  </android.support.design.widget.AppBarLayout>
+  <ScrollView
+      android:layout_below="@+id/appBar"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+      <ImageView
+          android:transitionName="@string/translation_name"
+          android:src="@drawable/placeholder"
+          android:scaleType="centerCrop"
+          android:id="@+id/previewImage"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/imagview_in_detail_height"
+          android:contentDescription="@string/app_name"
+          />
+      <TextView
+          android:textStyle="bold"
+          android:layout_margin="@dimen/layout_margin_default"
+          android:textSize="@dimen/card_title_font"
+          android:layout_below="@+id/previewImage"
+          android:id="@+id/title"
+          android:fontFamily="sans-serif"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+      <TextView
+          android:textStyle="bold"
+          android:layout_margin="@dimen/layout_margin_default"
+          android:textSize="@dimen/card_title_font"
+          android:layout_below="@+id/title"
+          android:id="@+id/orginal_web"
+          android:fontFamily="sans-serif"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+      <LinearLayout
+          android:padding="@dimen/layout_margin_default"
+          android:layout_below="@+id/orginal_web"
+          android:id="@+id/summery"
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          />
+
+    </RelativeLayout>
+  </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<resources>
+  <string name="app_name">Polar</string>
+  <string name="open_drawer">open</string>
+  <string name="close_drawer">close</string>
+  <string name="account_type">indexer.com.polar</string>
+  <string name="account_authorities">com.polar.tldr</string>
+  <string name="time_save">Time Saved :</string>
+  <string name="object_tag">Feed</string>
+  <string name="translation_name">feedimage</string>
+</resources>

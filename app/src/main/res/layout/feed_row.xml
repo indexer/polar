@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardElevation="5dp"
+    card_view:cardCornerRadius="@dimen/default_padding_small"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <ImageView
+        android:transitionName="@string/translation_name"
+        android:src="@drawable/placeholder"
+        android:scaleType="centerCrop"
+        android:id="@+id/previewImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/imageview_in_list_height"
+        />
+    <indexer.com.polar.widget.TextAwesome
+        android:fontFamily="sans-serif"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/previewImage"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:layout_gravity="center|center_vertical"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:text="Medium Text"
+        android:id="@+id/rowText"
+        />
+    <indexer.com.polar.widget.TextAwesome
+        android:layout_below="@+id/rowText"
+        android:id="@+id/urlcontent"
+        android:layout_margin="16dp"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:weightSum="2"
+        android:layout_below="@+id/urlcontent"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        >
+      <indexer.com.polar.widget.TextAwesome
+          android:layout_margin="8dp"
+          android:layout_gravity="center"
+          android:id="@+id/timeSaved"
+          android:layout_weight="1"
+          android:fontFamily="sans-serif"
+          android:gravity="center_vertical"
+          android:textAppearance="?android:attr/textAppearanceListItem"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          />
+
+      <indexer.com.polar.widget.TextAwesome
+          android:layout_margin="8dp"
+          android:layout_gravity="center"
+          android:id="@+id/mCategory"
+          android:fontFamily="sans-serif"
+          android:gravity="center_vertical"
+          android:textAppearance="?android:attr/textAppearanceListItem"
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          />
+
+    </LinearLayout>
+
+
+  </RelativeLayout>
+
+</android.support.v7.widget.CardView>
