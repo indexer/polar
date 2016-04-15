@@ -1,7 +1,6 @@
 package indexer.com.polar.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +8,13 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import indexer.com.polar.Polar;
 import indexer.com.polar.R;
 import indexer.com.polar.activity.MainActivity;
 import indexer.com.polar.base.BaseAdapter;
-import indexer.com.polar.callback.RestCallBack;
 import indexer.com.polar.listener.DataTransferInterface;
 import indexer.com.polar.model.Category;
-import indexer.com.polar.model.Feed;
-import indexer.com.polar.rest.RestClient;
 import java.util.ArrayList;
-import retrofit.Call;
-import retrofit.Response;
 
 /**
  * Created by indexer on 10/31/15.
@@ -59,22 +54,18 @@ public class DrawerAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
   class ViewHolder extends BaseViewHolder {
     @Bind(R.id.rowText) TextView mText;
 
-    public ViewHolder(final View itemView, DrawerAdapter adapter) {
+    public ViewHolder(final View itemView, final DrawerAdapter adapter) {
       super(itemView);
       ButterKnife.bind(this, itemView);
       itemView.setOnClickListener(this);
       mAdapter = adapter;
 
       setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
         @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-          Call<ArrayList<Feed>> feedByCategory = RestClient.getService(itemView.getContext())
-              .getFeedListByCategory(20, mCategories.get(i).getName());
-          feedByCategory.enqueue(new RestCallBack<ArrayList<Feed>>() {
-            @Override public void onResponse(Response<ArrayList<Feed>> response) {
-              Log.e("Value", "" + response.body().size());
-              dtInterface.setValues(response.body());
-            }
-          });
+          Polar.get()
+              .trackEvent("Category seeing", mCategories.get(i).getName(), "Category for feed");
+          dtInterface.setValues(mCategories.get(i).getName());
         }
       });
     }

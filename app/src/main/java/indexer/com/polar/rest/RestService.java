@@ -19,5 +19,6 @@ public interface RestService {
   @GET(Config.TLDR) Call<ArrayList<Feed>> getFeedListByCategory(@Query("number") int number,
       @Query("category") String category);
 
+  @GET(Config.TLDR_SEARCH) Call<Feed> getFeedBySearchWords(@Query("url") String url);
   // @FormUrlEncoded @POST(Config.POCKET_REQUEST_URL) Call<ReplyCode> getPocketCode();
 }

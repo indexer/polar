@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
   Context mContext;
   ArrayList<Feed> mCategories;
+  Feed mFeed;
   ImageView mImageView;
   TextView mText;
   TextView mTimeSaveView;
@@ -145,6 +146,9 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
         }
       });
     } else {
+      if (mCategories.size() == 1) {
+        position = 0;
+      }
       final String title = mCategories.get(position).getTitle();
       final String previewImage = mCategories.get(position).getImageUrl();
       final String decribeContent = mCategories.get(position).getOriginalUrl();
@@ -186,12 +190,38 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
     }
   }
 
+  public Feed getLatestFeed() {
+    if (mCategories.size() > 0) {
+      mFeed = mCategories.get(getItemCount());
+    } else {
+      mCursor.moveToPosition(49);
+      final String title = mCursor.getString(FeedLoader.Query.TITLE);
+      final String previewImage = mCursor.getString(FeedLoader.Query.IMAGE_URL);
+      final String decribeContent = mCursor.getString(FeedLoader.Query.ORGINAL_URL);
+      final String category = mCursor.getString(FeedLoader.Query.CATEGORY);
+      final String summeryBullte = mCursor.getString(FeedLoader.Query.SUMMERY);
+      mFeed = new Feed();
+      mFeed.setTitle(title);
+      mFeed.setImageUrl(previewImage);
+      mFeed.setSummaryString(summeryBullte);
+      mFeed.setCategory(category);
+      mFeed.setOrginalUrl(decribeContent);
+    }
+    return mFeed;
+  }
+
   @Override public int getItemCount() {
-    return mCursor.getCount();
+    if (mCategories.size() == 0) {
+      return mCursor.getCount();
+    } else {
+      return mCategories.size();
+    }
   }
 
   public void setCategory(ArrayList<Feed> category) {
+    mCategories.clear();
     mCategories = category;
+    notifyDataSetChanged();
   }
 
   class ViewHolder extends BaseViewHolder {

@@ -2,9 +2,14 @@
   <string name="app_name">Polar</string>
   <string name="open_drawer">open</string>
   <string name="close_drawer">close</string>
+  <string name="share">Share</string>
   <string name="account_type">indexer.com.polar</string>
   <string name="account_authorities">com.polar.tldr</string>
   <string name="time_save">Time Saved :</string>
+  <string name="error_search">There is no TLDR with this URL please try another keywords</string>
+  <string name="error_category">There is no TLDR with this Choosing Category please try another Category</string>
   <string name="object_tag">Feed</string>
   <string name="translation_name">feedimage</string>
+  <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>

@@ -1,11 +1,18 @@
 package indexer.com.polar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 import indexer.com.polar.R;
 import indexer.com.polar.base.BaseActivity;
@@ -19,6 +26,7 @@ public class DetailActivity extends BaseActivity {
   @Bind(R.id.title) TextView mTextViewTitle;
   @Bind(R.id.summery) LinearLayout mLinearLayout;
   @Bind(R.id.orginal_web) TextView mOriginalWeb;
+  Feed mFeed;
 
   public static ArrayList<String> convertStringToArray(String str) {
     ArrayList<String> arr = new ArrayList<>();
@@ -32,7 +40,7 @@ public class DetailActivity extends BaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ButterKnife.bind(this);
-    Feed mFeed = getIntent().getParcelableExtra(String.valueOf(R.string.object_tag));
+    mFeed = getIntent().getParcelableExtra(String.valueOf(R.string.object_tag));
     Picasso.with(this)
         .load(mFeed.getImageUrl())
         .placeholder(R.drawable.placeholder)
@@ -53,6 +61,13 @@ public class DetailActivity extends BaseActivity {
       mText.setTextSize(18);
       mLinearLayout.addView(mText);
     }
+    AdView mAdView = (AdView) findViewById(R.id.adView);
+    // Create an ad request. Check logcat output for the hashed device ID to
+    // get test ads on a physical device. e.g.
+    // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+    AdRequest adRequest =
+        new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+    mAdView.loadAd(adRequest);
   }
 
   @Override protected boolean needFabButton() {
@@ -72,6 +87,27 @@ public class DetailActivity extends BaseActivity {
   }
 
   @Override protected int toolBarIndicator() {
-    return R.drawable.ic_drawer;
+    return R.drawable.ic_action_name;
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater menuInflater = getMenuInflater();
+    menuInflater.inflate(R.menu.detail, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        supportFinishAfterTransition();
+        break;
+      case R.id.menu_share:
+        startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(this)
+            .setType("text/plain")
+            .setText(mFeed.getOriginalUrl())
+            .getIntent(), getString(R.string.share)));
+        break;
+    }
+    return super.onOptionsItemSelected(item);
   }
 }

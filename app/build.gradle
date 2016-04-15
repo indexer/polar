@@ -15,15 +15,15 @@ android {
   signingConfigs {
     release {
       storeFile file('polar.jks')
-      storePassword POLAR_PASSWORD
-      keyAlias APP_NAME
-      keyPassword POLAR_PASSWORD
+      storePassword "POLARPOLAR"
+      keyAlias "POLAR"
+      keyPassword "p5mhJmCe7D58tF8rKanYYxZcPzl0FZqI"
     }
   }
 
   buildTypes {
     release {
-      minifyEnabled true
+      minifyEnabled false
       shrinkResources true
       signingConfig signingConfigs.release
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -45,4 +45,6 @@ dependencies {
   compile 'com.squareup.okhttp:okhttp:2.5.0'
   //image
   compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.google.android.gms:play-services-analytics:8.4.0'
+  compile 'com.google.android.gms:play-services-ads:8.4.0'
 }

@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+  <TextView
+      android:textSize="@dimen/card_title_font"
+      android:gravity="center_vertical"
+      android:text="Title"
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      />
   <ImageView
       android:src="@drawable/placeholder"
       android:scaleType="centerCrop"
