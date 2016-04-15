@@ -10,7 +10,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import com.squareup.picasso.Picasso;
 import indexer.com.polar.R;
@@ -45,7 +44,6 @@ public class LatestFeedWidget extends AppWidgetProvider {
     if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
       // handle intent here
       mFeed = intent.getParcelableExtra(String.valueOf(R.string.object_tag));
-      Log.e("Feed", "" + mFeed.getOriginalUrl());
       if (mFeed != null) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisAppWidget =
