@@ -48,7 +48,7 @@
         android:exported="true"
         android:process=":sync"
         >
-      <intent-filter>
+      <intent-filter>a
         <action android:name="android.content.SyncAdapter"/>
       </intent-filter>
 

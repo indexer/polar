@@ -26,28 +26,38 @@ import indexer.com.polar.data.FeedLoader;
 import indexer.com.polar.model.Feed;
 import indexer.com.polar.widget.TextAwesome;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by indexer on 10/31/15.
  */
 public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
   Context mContext;
-  ArrayList<Feed> mCategories;
-  Feed mFeed;
-  ImageView mImageView;
-  TextView mText;
-  TextView mTimeSaveView;
-  TextAwesome mTextSlug;
-  TextAwesome mTextOrginalUrl;
-  CardView mCardView;
+  private ArrayList<Feed> mCategories;
+  private Feed mFeed;
+  private ImageView mImageView;
+  private TextView mText;
+  private TextView mTimeSaveView;
+  private TextAwesome mTextSlug;
+  private TextAwesome mTextOrginalUrl;
+  private CardView mCardView;
+
   private final Target target = new Target() {
     @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
       mImageView.setImageBitmap(bitmap);
       Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
         @Override public void onGenerated(Palette palette) {
           //work with the palette here
-          setViewSwatch(mText, palette.getDarkVibrantSwatch());
-          setViewSwatchCard(mCardView, palette.getVibrantSwatch());
+          if (palette != null) {
+            try {
+              setViewSwatch(mText, palette.getDarkVibrantSwatch());
+              setViewSwatchCard(mCardView, getDominamtSwatch(palette));
+            } catch (NoSuchElementException noe) {
+              noe.printStackTrace();
+            }
+          }
         }
       });
     }
@@ -60,20 +70,31 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
 
     }
   };
+
+  ;
   private Cursor mCursor;
 
   public LatestFeedAdapter() {
     mCategories = new ArrayList<>();
   }
 
-  public void setViewSwatchCard(CardView view, Palette.Swatch swatch) {
+  public static Palette.Swatch getDominamtSwatch(Palette palette) {
+
+    return Collections.max(palette.getSwatches(), new Comparator<Palette.Swatch>() {
+      @Override public int compare(Palette.Swatch o1, Palette.Swatch o2) {
+        return Integer.compare(o1.getPopulation(), o2.getPopulation());
+      }
+    });
+  }
+
+  private void setViewSwatchCard(CardView view, Palette.Swatch swatch) {
     if (swatch != null) {
       view.setBackgroundColor(swatch.getRgb());
       view.setVisibility(View.VISIBLE);
     }
   }
 
-  public void setViewSwatch(TextView view, Palette.Swatch swatch) {
+  private void setViewSwatch(TextView view, Palette.Swatch swatch) {
     if (swatch != null) {
       view.setTextColor(swatch.getTitleTextColor());
       view.setVisibility(View.VISIBLE);
@@ -224,7 +245,7 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
     notifyDataSetChanged();
   }
 
-  class ViewHolder extends BaseViewHolder {
+  public class ViewHolder extends BaseViewHolder {
     @Bind(R.id.rowText) TextAwesome mText;
     @Bind(R.id.urlcontent) TextAwesome mUrlText;
     @Bind(R.id.previewImage) ImageView mImageView;
@@ -232,7 +253,7 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
     @Bind(R.id.timeSaved) TextAwesome mTimeSaved;
     @Bind(R.id.mCategory) TextAwesome mCategory;
 
-    public ViewHolder(View itemView, LatestFeedAdapter adapter) {
+    ViewHolder(View itemView, LatestFeedAdapter adapter) {
       super(itemView);
       ButterKnife.bind(this, itemView);
       itemView.setOnClickListener(this);
