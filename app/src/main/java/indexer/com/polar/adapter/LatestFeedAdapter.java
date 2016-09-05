@@ -26,9 +26,6 @@ import indexer.com.polar.data.FeedLoader;
 import indexer.com.polar.model.Feed;
 import indexer.com.polar.widget.TextAwesome;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.NoSuchElementException;
 
 /**
  * Created by indexer on 10/31/15.
@@ -52,9 +49,10 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
           //work with the palette here
           if (palette != null) {
             try {
-              setViewSwatch(mText, palette.getDarkVibrantSwatch());
-              setViewSwatchCard(mCardView, getDominamtSwatch(palette));
-            } catch (NoSuchElementException noe) {
+              mText.setTextColor(palette.getDominantSwatch().getTitleTextColor());
+              //setViewSwatch(mText, palette.getVibrantSwatch());
+              setViewSwatchCard(mCardView, palette.getDominantSwatch());
+            } catch (NullPointerException noe) {
               noe.printStackTrace();
             }
           }
@@ -70,23 +68,27 @@ public class LatestFeedAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
 
     }
   };
-
-  ;
   private Cursor mCursor;
 
   public LatestFeedAdapter() {
     mCategories = new ArrayList<>();
   }
 
-  public static Palette.Swatch getDominamtSwatch(Palette palette) {
+  /* public static int getComplimentColor(int color) {
+     // get existing colors
+     int alpha = Color.alpha(color);
+     int red = Color.red(color);
+     int blue = Color.blue(color);
+     int green = Color.green(color);
 
-    return Collections.max(palette.getSwatches(), new Comparator<Palette.Swatch>() {
-      @Override public int compare(Palette.Swatch o1, Palette.Swatch o2) {
-        return Integer.compare(o1.getPopulation(), o2.getPopulation());
-      }
-    });
-  }
+     // find compliments
+     red = (~red) & 0xff;
+     blue = (~blue) & 0xff;
+     green = (~green) & 0xff;
 
+     return Color.argb(alpha, red, green, blue);
+   }
+ */
   private void setViewSwatchCard(CardView view, Palette.Swatch swatch) {
     if (swatch != null) {
       view.setBackgroundColor(swatch.getRgb());

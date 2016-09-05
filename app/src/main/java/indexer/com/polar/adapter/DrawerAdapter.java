@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import indexer.com.polar.Polar;
 import indexer.com.polar.R;
 import indexer.com.polar.activity.MainActivity;
 import indexer.com.polar.base.BaseAdapter;
@@ -63,8 +62,8 @@ public class DrawerAdapter extends BaseAdapter<BaseAdapter.BaseViewHolder> {
       setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
         @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-          Polar.get()
-              .trackEvent("Category seeing", mCategories.get(i).getName(), "Category for feed");
+         /* Polar.get()
+              .trackEvent("Category seeing", mCategories.get(i).getName(), "Category for feed");*/
           dtInterface.setValues(mCategories.get(i).getName());
         }
       });
